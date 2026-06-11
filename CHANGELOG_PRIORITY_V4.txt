@@ -1,0 +1,23 @@
+PRIORITY V4 - 2026-05-29
+
+Main changes:
+1. Reduced line speed for stable line following:
+   - LINE5_BASE_SPEED_255 = 75
+   - LINE5_CARRY_SPEED_255 = 65
+   - LINE5_MAX_SPEED_255 = 170
+2. HC-SR04 has higher priority and faster update:
+   - Trigger period = 35ms
+   - Distance timeout = 150ms
+   - Slow down starts at 10cm
+   - Emergency stop at 3cm remains immediate in normal running states
+3. Lost-line recovery improved:
+   - First turns back toward the last lost line direction
+   - Then slowly sweeps forward/left/right/back until line is found
+   - No stop just because all 5 line sensors are off line
+4. False/unknown object behavior:
+   - If color cannot be confirmed within 10s, robot avoids the object and continues
+   - If wrong color while carrying, robot avoids and continues searching
+5. TCS34725 and servos remain dependent peripherals; line + HC-SR04 are treated as priority sensors.
+
+Open with: MDK-ARM/do_line_AI.uvprojx
+Rebuild in Keil before flashing.
